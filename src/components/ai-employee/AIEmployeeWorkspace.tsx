@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -143,6 +143,7 @@ export default function AIEmployeeWorkspace({ initialLeads }: { initialLeads: Ma
             <Kpi label="Verified subscriptions" value={reached('Subscription Active')} />
             <Kpi label="Possible duplicates" value={duplicateIds.size} />
           </div>
+          <NeonStatusPanel />
           <p className="text-sm text-zinc-400">
             All counts come from sample records and in-memory demo actions. No real registrations,
             payments, or replies exist in this session.
@@ -234,6 +235,55 @@ export default function AIEmployeeWorkspace({ initialLeads }: { initialLeads: Ma
         />
       )}
     </div>
+  );
+}
+
+type NeonState =
+  | { kind: 'loading' }
+  | { kind: 'ready'; total: number; byStatus: Record<string, number> }
+  | { kind: 'error'; message: string };
+
+/** Live counts from the Neon preview branch, via the read-only Preview API. Counts only, no rows. */
+function NeonStatusPanel() {
+  const [state, setState] = useState<NeonState>({ kind: 'loading' });
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/ai-employee/summary', { signal: controller.signal, headers: { accept: 'application/json' } })
+      .then(async (res) => {
+        const body = (await res.json().catch(() => ({}))) as { error?: string; total?: number; byStatus?: Record<string, number> };
+        if (!res.ok || typeof body.total !== 'number' || !body.byStatus) {
+          setState({ kind: 'error', message: body.error ?? (res.ok ? 'Unexpected response from the API.' : `Request failed (${res.status}).`) });
+          return;
+        }
+        setState({ kind: 'ready', total: body.total, byStatus: body.byStatus });
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return;
+        setState({ kind: 'error', message: err instanceof Error ? err.message : 'Request failed.' });
+      });
+    return () => controller.abort();
+  }, []);
+
+  return (
+    <Panel title="Neon database (preview branch, read-only counts)">
+      {state.kind === 'loading' && <p className="text-sm text-zinc-400">Checking connection…</p>}
+      {state.kind === 'error' && <p className="text-sm text-amber-200">Not connected: {state.message}</p>}
+      {state.kind === 'ready' && (
+        <div className="space-y-2 text-sm">
+          <p className="text-zinc-200">Leads in database: <span className="text-white">{state.total}</span></p>
+          {Object.keys(state.byStatus).length === 0 && <p className="text-zinc-400">The table is empty. No lead data has been imported.</p>}
+          <ul className="grid grid-cols-2 gap-2 md:grid-cols-4">
+            {Object.entries(state.byStatus).map(([status, count]) => (
+              <li key={status} className="flex justify-between rounded-md border border-white/10 px-2 py-1">
+                <span className="text-zinc-300">{status}</span>
+                <span className="text-white">{count}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </Panel>
   );
 }
 
