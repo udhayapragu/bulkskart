@@ -70,6 +70,7 @@ const DisputeCenterPage     = lazy(() => import('./pages/dashboard/shared/Disput
 // ─── Lazy: admin dashboard ────────────────────────────────────────────────────
 const AdminDashboardFull    = lazy(() => import('./pages/dashboard/admin/AdminDashboardFull'));
 const AIMatchAnalyticsPage  = lazy(() => import('./pages/dashboard/admin/AIMatchAnalyticsPage'));
+const AIEmployeePage        = lazy(() => import('./pages/ai-employee/AIEmployeePage'));
 
 // ─── Lazy: footer / company pages ─────────────────────────────────────────────
 const AboutPage         = lazy(() => import('./pages/AboutPage'));
@@ -237,6 +238,7 @@ export const routes: RouteConfig[] = [
   // ── Admin ─────────────────────────────────────────────────────
   { name: 'Admin Dashboard', path: '/dashboard/admin', element: <AdminDashboardFull /> },
   { name: 'AI Match Analytics', path: '/dashboard/admin/ai-match-analytics', element: <AIMatchAnalyticsPage /> },
+  { name: 'AI Employee', path: '/admin/ai-employee', element: <AIEmployeePage /> },
 
   // ── Company / Legal ───────────────────────────────────────────
   { name: 'About Us',      path: '/about',         element: <AboutPage />,        public: true },
