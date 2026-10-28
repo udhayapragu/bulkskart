@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BrandLogo from '@/components/common/BrandLogo';
 import { Globe, Linkedin, Twitter, Facebook, Instagram, Youtube, Mail, MessageSquare } from 'lucide-react';
-import { WHATSAPP_CHAT_URL, WHATSAPP_DISPLAY, WHATSAPP_MESSAGE_URL } from '@/lib/supportContact';
+import { WHATSAPP_CHAT_URL, WHATSAPP_DISPLAY } from '@/lib/supportContact';
 
 const footerLinks = {
   Products: [
@@ -66,9 +66,6 @@ export default function Footer() {
               </a>
               <a href={WHATSAPP_CHAT_URL} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
                 <MessageSquare className="w-3 h-3 text-[#25D366] shrink-0" /> WhatsApp {WHATSAPP_DISPLAY}
-              </a>
-              <a href={WHATSAPP_MESSAGE_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#128C7E] hover:underline">
-                Chat on WhatsApp
               </a>
             </div>
             <div className="flex gap-3">
