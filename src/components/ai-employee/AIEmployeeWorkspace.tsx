@@ -15,12 +15,14 @@ import { scoreLead } from '@/lib/aiEmployee/scoring';
 import { buildOutreachDraft, OUTREACH_ELIGIBLE_STATUSES } from '@/lib/aiEmployee/outreach';
 import { buildFunnel, countByStatus, followUpTasks } from '@/lib/aiEmployee/pipeline';
 import { toCsv, type CsvColumn } from '@/lib/aiEmployee/csv';
+import { validateLeadImport, type LeadImportResult } from '@/lib/aiEmployee/leadImport';
 
-type TabId = 'overview' | 'leads' | 'research' | 'outreach' | 'pipeline' | 'settings';
+type TabId = 'overview' | 'leads' | 'import' | 'research' | 'outreach' | 'pipeline' | 'settings';
 
 const TABS: Array<{ id: TabId; label: string }> = [
   { id: 'overview', label: 'Overview' },
   { id: 'leads', label: 'Lead Explorer' },
+  { id: 'import', label: 'Import' },
   { id: 'research', label: 'Research' },
   { id: 'outreach', label: 'Outreach' },
   { id: 'pipeline', label: 'Pipeline' },
@@ -155,6 +157,16 @@ export default function AIEmployeeWorkspace({ initialLeads }: { initialLeads: Ma
           scores={scores}
           onStatusChange={setLeadStatus}
           onExported={(count) => log('leads.export', `Exported ${count} sample rows to CSV`)}
+        />
+      )}
+
+      {tab === 'import' && (
+        <PublicSourceImport
+          existing={leads}
+          onImport={(added) => {
+            setLeads((prev) => [...prev, ...added]);
+            log('leads.import', `Imported ${added.length} unverified public-source leads (not saved)`);
+          }}
         />
       )}
 
@@ -424,6 +436,105 @@ function Field({ label, value }: { label: string; value: string }) {
       <dt className="text-xs text-zinc-400">{label}</dt>
       <dd className="break-words text-zinc-100">{value}</dd>
     </div>
+  );
+}
+
+const IMPORT_HEADER = 'company_name,country,city,product_category,website,source_url,research_date,confidence,research_notes';
+
+/** Placeholder only. It is never loaded into the input, so it cannot be imported by accident. */
+const IMPORT_EXAMPLE_HINT = `${IMPORT_HEADER}
+<company name from the source>,<country>,<city>,<category>,<company website>,<https:// URL of the public page>,<YYYY-MM-DD>,<low|medium|high>,<what the page shows>`;
+
+function PublicSourceImport({
+  existing,
+  onImport,
+}: {
+  existing: ManufacturerLead[];
+  onImport: (leads: ManufacturerLead[]) => void;
+}) {
+  const [text, setText] = useState('');
+  const [result, setResult] = useState<LeadImportResult | null>(null);
+
+  const validate = () => {
+    const outcome = validateLeadImport(text, existing);
+    setResult(outcome);
+    if (outcome.error) toast.error(outcome.error);
+  };
+
+  const importAccepted = () => {
+    if (!result || result.accepted.length === 0) return;
+    onImport(result.accepted);
+    toast.success(`Added ${result.accepted.length} unverified leads to this session.`);
+    setText('');
+    setResult(null);
+  };
+
+  return (
+    <section className="grid gap-4 lg:grid-cols-3">
+      <Panel title="Paste public-source records (CSV)">
+        <div className="space-y-3">
+          <p className="text-xs text-zinc-400">
+            Each row needs a company name, a country, and an https:// source URL that the record was taken from. Imported
+            leads are marked unverified until a person checks the source. Required columns: company_name, country, source_url.
+          </p>
+          <Textarea
+            className="min-h-[220px] border-white/15 bg-zinc-950 font-mono text-xs text-zinc-100"
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+              setResult(null);
+            }}
+            placeholder={IMPORT_EXAMPLE_HINT}
+            aria-label="Public-source CSV"
+          />
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" onClick={validate} disabled={!text.trim()} className="bg-violet-600 text-white hover:bg-violet-500">
+              Validate
+            </Button>
+            <Button type="button" variant="outline" onClick={() => { setText(IMPORT_HEADER); setResult(null); }}>
+              Load header row
+            </Button>
+          </div>
+          <p className="text-xs text-zinc-500">Load the header row, then paste one record per line below it.</p>
+        </div>
+      </Panel>
+
+      <Panel title="Validation result">
+        {!result && <p className="text-sm text-zinc-400">Validate a batch to see which rows pass.</p>}
+        {result && result.error && <p className="text-sm text-rose-200">{result.error}</p>}
+        {result && !result.error && (
+          <div className="space-y-3 text-sm">
+            <p className="text-zinc-200">
+              Accepted: <span className="text-white">{result.accepted.length}</span> · Rejected:{' '}
+              <span className="text-white">{result.rejected.length}</span> · Duplicates:{' '}
+              <span className="text-white">{result.duplicates.length}</span>
+            </p>
+            <Button type="button" onClick={importAccepted} disabled={result.accepted.length === 0} className="w-full bg-amber-500 text-black hover:bg-amber-400">
+              Add {result.accepted.length} unverified lead(s) to this session
+            </Button>
+            <p className="text-xs text-zinc-400">Session only. Nothing is written to a database.</p>
+          </div>
+        )}
+      </Panel>
+
+      <Panel title="Rows needing attention">
+        {!result?.error && result && result.rejected.length === 0 && result.duplicates.length === 0 && (
+          <p className="text-sm text-zinc-400">No problems found.</p>
+        )}
+        <ul className="max-h-96 space-y-2 overflow-y-auto text-xs">
+          {result?.rejected.map((r) => (
+            <li key={`r-${r.line}`} className="rounded-md border border-rose-400/30 p-2">
+              <span className="text-zinc-400">Line {r.line}</span> · {r.companyName} · <span className="text-rose-200">{r.reason}</span>
+            </li>
+          ))}
+          {result?.duplicates.map((d) => (
+            <li key={`d-${d.line}`} className="rounded-md border border-amber-400/30 p-2">
+              <span className="text-zinc-400">Line {d.line}</span> · {d.companyName} · <span className="text-amber-200">possible duplicate, skipped</span>
+            </li>
+          ))}
+        </ul>
+      </Panel>
+    </section>
   );
 }
 
