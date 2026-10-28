@@ -192,7 +192,6 @@ const COUNTRY_FLAGS: Record<string, string> = {
   Brazil: '🇧🇷',
   Malaysia: '🇲🇾',
   Taiwan: '🇹🇼',
-  Vietnam: '🇻🇳',
 };
 
 /** Minimum catalog density for a full multi-column landing grid */
