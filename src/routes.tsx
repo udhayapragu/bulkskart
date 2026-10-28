@@ -1,6 +1,7 @@
 import React from 'react';
 import { lazyRetry as lazy } from '@/lib/lazyRetry';
 import type { ReactNode } from 'react';
+import { AI_EMPLOYEE_DEMO_BUILD } from '@/lib/aiEmployee/demoMode';
 
 // ─── Eager: landing shell (must be instant) ──────────────────────────────────
 import HomePage from './pages/HomePage';
@@ -91,7 +92,8 @@ export interface RouteConfig {
 
 export const routes: RouteConfig[] = [
   // ── Public Core ─────────────────────────────────────────────
-  { name: 'Home', path: '/', element: <HomePage />, public: true },
+  // Preview/demo builds open straight to the AI Employee dashboard. Production keeps the homepage.
+  { name: 'Home', path: '/', element: AI_EMPLOYEE_DEMO_BUILD ? <AIEmployeePage /> : <HomePage />, public: true },
   { name: 'Products', path: '/products', element: <ProductsPage />, public: true },
   { name: 'Manufacturers', path: '/manufacturers', element: <ManufacturersPage />, public: true },
   { name: 'Suppliers Directory', path: '/suppliers', element: <ManufacturersPage />, public: true },
