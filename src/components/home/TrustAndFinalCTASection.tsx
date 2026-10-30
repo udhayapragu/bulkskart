@@ -5,6 +5,7 @@ import {
   Truck, ArrowRight, FileText, ShoppingBag, Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SectionHeader from '@/components/home/SectionHeader';
 
 export default function TrustAndFinalCTASection() {
   const trustPoints = [
@@ -62,19 +63,15 @@ export default function TrustAndFinalCTASection() {
         {/* Glow circles */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FF5A1F]/15 blur-[120px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-[11px] font-bold text-[#FF5A1F] uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
-            Global B2B Wholesale
-          </div>
-
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Start Your Bulk Trading Journey Today
-          </h2>
-
-          <p className="text-sm sm:text-base text-slate-300 font-normal text-pretty">
-            Join 50,000+ verified manufacturers and enterprise buyers securing high-volume orders with guaranteed escrow protection.
-          </p>
+        <div className="relative z-10">
+          <SectionHeader
+            tone="dark"
+            align="center"
+            eyebrow="Global B2B Wholesale"
+            icon={<Sparkles className="h-3.5 w-3.5" />}
+            title="Start Your Bulk Trading Journey Today"
+            subtitle="Join 50,000+ verified manufacturers and enterprise buyers securing high-volume orders with guaranteed escrow protection."
+          />
         </div>
 
         <div className="relative z-10 flex items-center justify-center gap-3.5 pt-2 flex-wrap">

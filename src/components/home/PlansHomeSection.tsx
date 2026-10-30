@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCountry } from '@/contexts/CurrencyContext';
 import { useRazorpay } from '@/hooks/useRazorpay';
 import { toast } from 'sonner';
+import SectionHeader from '@/components/home/SectionHeader';
 
 const MONTHLY_PLANS = [
   {
@@ -110,17 +111,14 @@ export default function PlansHomeSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-5 md:px-6">
 
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold mb-2.5">
-            <Zap className="w-3.5 h-3.5" />
-            <span>Supplier Growth Memberships</span>
-          </div>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">
-            Transparent Monthly Supplier Plans
-          </h2>
-          <p className="text-sm text-muted-foreground mt-2 text-pretty">
-            Simple, transparent monthly pricing. Zero lock-in contracts, zero annual billing commitments. Cancel or upgrade whenever you want.
-          </p>
+        <div className="mb-10">
+          <SectionHeader
+            align="center"
+            eyebrow="Supplier Growth Memberships"
+            icon={<Zap className="h-3.5 w-3.5" />}
+            title="Transparent Monthly Supplier Plans"
+            subtitle="Simple, transparent monthly pricing. Zero lock-in contracts, zero annual billing commitments. Cancel or upgrade whenever you want."
+          />
         </div>
 
         {/* Plans Grid (3 Monthly Columns) */}

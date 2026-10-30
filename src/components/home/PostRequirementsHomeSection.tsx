@@ -9,6 +9,7 @@ import {
   Globe2, ArrowRight, Building2, HelpCircle
 } from 'lucide-react';
 import { toast } from 'sonner';
+import SectionHeader from '@/components/home/SectionHeader';
 
 const POPULAR_CATEGORIES = [
   'Machinery & Equipment',
@@ -65,31 +66,26 @@ export default function PostRequirementsHomeSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-5 md:px-6">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold mb-2.5">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Direct Factory Sourcing</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">
-              Post Buying Requirement
-            </h2>
-            <p className="text-sm text-muted-foreground mt-1 max-w-xl text-pretty">
-              Tell verified global manufacturers what you need. Receive genuine wholesale quotations with CIF/FOB pricing within hours.
-            </p>
-          </div>
-
-          {/* Sourcing Guarantee Badges */}
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
-              <span>Zero Buyer Commission</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-primary shrink-0" />
-              <span>Quotes in ~4 Hours</span>
-            </div>
-          </div>
+        <div className="mb-8">
+          <SectionHeader
+            eyebrow="Direct Factory Sourcing"
+            icon={<Sparkles className="h-3.5 w-3.5" />}
+            title="Post Buying Requirement"
+            subtitle="Tell verified global manufacturers what you need. Receive genuine wholesale quotations with CIF/FOB pricing within hours."
+            action={
+              /* Sourcing guarantee badges */
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-primary" />
+                  <span>Zero Buyer Commission</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="h-4 w-4 shrink-0 text-primary" />
+                  <span>Quotes in ~4 Hours</span>
+                </div>
+              </div>
+            }
+          />
         </div>
 
         {/* Interactive Post Requirement Card */}

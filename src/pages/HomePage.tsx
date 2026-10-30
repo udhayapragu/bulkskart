@@ -34,6 +34,7 @@ import PlansHomeSection from '@/components/home/PlansHomeSection';
 import ReviewsHomeSection from '@/components/home/ReviewsHomeSection';
 import OrderBenefitsSection from '@/components/home/OrderBenefitsSection';
 import SafeImage, { toWebPUrl, buildWebPSrcSet } from '@/components/common/SafeImage';
+import SectionHeader from '@/components/home/SectionHeader';
 
 // ── Helpers ─────────────────────────────────────────────
 function timeAgo(iso: string): string {
@@ -715,16 +716,13 @@ export default function HomePage() {
       <section className="py-12 bg-card/60 border-t border-border">
         <div className="max-w-[1400px] mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-[#FF5A00] bg-[#FF5A00]/10 px-3 py-1 rounded-full mb-2">
-                India Sourcing Ecosystem
-              </span>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground">
-                India’s Premier B2B Bulk Buying & Wholesale Platform
-              </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-2 max-w-2xl mx-auto">
-                Bridging verified Indian manufacturing clusters with global procurement professionals through transparent quotation comparison and Trade Assurance.
-              </p>
+            <div className="mb-8">
+              <SectionHeader
+                align="center"
+                eyebrow="India sourcing ecosystem"
+                title="India’s Premier B2B Bulk Buying & Wholesale Platform"
+                subtitle="Bridging verified Indian manufacturing clusters with global procurement professionals through transparent quotation comparison and Trade Assurance."
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-muted-foreground leading-relaxed">

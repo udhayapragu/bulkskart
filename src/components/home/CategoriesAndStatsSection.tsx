@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SectionHeader from '@/components/home/SectionHeader';
 import {
   Layers, Package, Factory, Cog, FlaskConical, Shirt,
   ChevronRight, ArrowRight
@@ -104,31 +105,27 @@ export default function CategoriesAndStatsSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#080C14]/70 via-transparent to-transparent" />
       </div>
 
-      {/* ── Section Header (Exact Reference UI matching Image 2) ── */}
-      <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-3 mb-3 sm:mb-4 pt-1">
-        <div>
-          <span className="text-[10px] sm:text-xs font-bold text-[#FF5A00] uppercase tracking-wider block mb-0.5">
-            CORE INDUSTRIAL TAXONOMY
-          </span>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
-            Explore Bulk Product{' '}
-            <span className="text-[#FF5A00]">
-              Categories
-            </span>
-          </h2>
-          <p className="text-xs text-slate-300 mt-0.5 max-w-xl font-normal leading-normal">
-            Source directly from verified manufacturers across multiple industries
-          </p>
-        </div>
-
-        {/* Solid Orange Pill Button matching Image 2 */}
-        <Link
-          to="/categories"
-          className="self-start sm:self-auto inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-[#FF5A00] to-[#FF4500] hover:from-[#ff6b1a] hover:to-[#e04500] text-white text-xs sm:text-sm font-bold shadow-lg shadow-[#FF5A00]/25 hover:shadow-[#FF5A00]/40 transition-all active:scale-95 shrink-0"
-        >
-          <span>View All Categories</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
+      {/* ── Section Header ── */}
+      <div className="relative z-10 mb-3 pt-1 sm:mb-4">
+        <SectionHeader
+          tone="dark"
+          eyebrow="Core industrial taxonomy"
+          title={
+            <>
+              Explore Bulk Product <span className="text-primary">Categories</span>
+            </>
+          }
+          subtitle="Source directly from verified manufacturers across multiple industries"
+          action={
+            <Link
+              to="/categories"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-r from-[#FF5A00] to-[#FF4500] px-4 py-2 text-xs font-bold text-white shadow-lg shadow-[#FF5A00]/25 transition-all hover:from-[#ff6b1a] hover:to-[#e04500] hover:shadow-[#FF5A00]/40 active:scale-95 sm:px-5 sm:text-sm"
+            >
+              <span>View All Categories</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          }
+        />
       </div>
 
       {/* ── 2-Column Mobile Grid & 3-Column Desktop Grid matching Image 2 ── */}
