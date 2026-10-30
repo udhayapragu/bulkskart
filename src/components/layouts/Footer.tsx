@@ -119,7 +119,6 @@ export default function Footer() {
 
         <div className="border-t border-border mt-5 pt-4 flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
           <p className="text-xs text-muted-foreground">© 2026 Tech Pod AI Database Private Limited · BulkSkart. All rights reserved.</p>
-          <p className="text-xs text-muted-foreground">Global Trade · A Stronger Tomorrow</p>
         </div>
       </div>
     </footer>
