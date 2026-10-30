@@ -78,7 +78,7 @@ aws_cli s3 sync dist/ "s3://${DEPLOY_BUCKET}/${DEPLOY_PREFIX}/latest/" --delete 
 
 export APPLY_SCRIPT
 APPLY_SCRIPT="$(cat <<EOF
-bash -lc 'set -euo pipefail; export AWS_DEFAULT_REGION=${AWS_REGION}; TMP=\$(mktemp -d); aws s3 sync ${S3_URI}/ "\$TMP/" --delete --only-show-errors; test -f "\$TMP/index.html"; rsync -a --delete "\$TMP/" /opt/bulkskart/stack/frontend/dist/; docker restart bulkskart-web; rm -rf "\$TMP"; echo DEPLOY_OK ${STAMP}'
+bash -lc 'set -euo pipefail; export AWS_DEFAULT_REGION=${AWS_REGION}; TMP=\$(mktemp -d); chmod 755 "\$TMP"; aws s3 sync ${S3_URI}/ "\$TMP/" --delete --only-show-errors; test -f "\$TMP/index.html"; rsync -a --delete "\$TMP/" /opt/bulkskart/stack/frontend/dist/; docker restart bulkskart-web; rm -rf "\$TMP"; echo DEPLOY_OK ${STAMP}'
 EOF
 )"
 
