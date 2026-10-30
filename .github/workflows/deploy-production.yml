@@ -1,0 +1,47 @@
+name: Deploy production
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Deploy via S3 + SSM
+        env:
+          AWS_PROFILE: ''
+          INSTANCE_ID: i-05439223085603d42
+          DEPLOY_BUCKET: bulkskart-deploy-prod
+        run: |
+          chmod +x scripts/deploy-prod-ssm.sh
+          # Script prefers AWS_PROFILE; clear it so default env creds from the action are used.
+          unset AWS_PROFILE || true
+          bash scripts/deploy-prod-ssm.sh
