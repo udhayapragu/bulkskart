@@ -163,8 +163,8 @@ export default function CategoriesAndStatsSection() {
                   loading="lazy"
                 />
                 {/* Seamless ambient blend gradients */}
-                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-card via-card/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
               </div>
 
               {/* Circular Chevron Button (Floating over Right Side) matching Image 2 */}

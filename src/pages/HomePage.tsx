@@ -73,6 +73,38 @@ function FadeInSection({ children, delay = 0, className = '' }: { children: Reac
   );
 }
 
+// Shared by the FAQPage structured data and the visible FAQ section, so the two always match.
+const HOME_FAQS = [
+  {
+    question: "What is BulkSkart?",
+    answer: "BulkSkart is India's leading global B2B wholesale marketplace connecting verified bulk buyers directly with verified global manufacturers and industrial exporters across India, USA, UAE, Germany, and 180+ countries.",
+  },
+  {
+    question: "Is posting a bulk requirement (RFQ) free for buyers?",
+    answer: "Yes, verified buyers can post unlimited bulk buying requirements (RFQs) 100% free with zero platform commissions or hidden fees.",
+  },
+  {
+    question: "How does BulkSkart verify suppliers and factories?",
+    answer: "Every manufacturer undergoes rigorous verification including business license audits, tax identification (GST/IEC), production facility certifications (ISO, CE, FDA), and historical trade performance reviews.",
+  },
+  {
+    question: "What is Trade Assurance on BulkSkart?",
+    answer: "Trade Assurance protects buyer purchase orders with guaranteed on-time dispatch, product quality standards, milestone escrow payments, and secure dispute resolution.",
+  },
+  {
+    question: "Can suppliers receive live buyer requirements?",
+    answer: "Yes, verified manufacturers receive instant alerts for live buying tenders matching their product categories and can submit direct factory quotations to buyers.",
+  },
+  {
+    question: "Is delivery free on BulkSkart?",
+    answer: "Yes. Free delivery applies to every order placed on BulkSkart. No delivery fee is added at checkout, for any order value or product category.",
+  },
+  {
+    question: "Can I estimate a monthly installment for a bulk order?",
+    answer: "Yes. The order loan calculator on the homepage estimates a monthly installment from the order value, down payment, interest rate, and tenure. Delivery on that order stays free. The figure is for planning and is not a credit approval.",
+  },
+];
+
 const LIVE_REFRESH_MS = 2 * 60 * 1000;
 
 const FLAG_MAP: Record<string, string> = {
@@ -607,36 +639,7 @@ export default function HomePage() {
         breadcrumbs={[
           { name: 'Home', item: '/' },
         ]}
-        faq={[
-          {
-            question: "What is BulkSkart?",
-            answer: "BulkSkart is India's leading global B2B wholesale marketplace connecting verified bulk buyers directly with verified global manufacturers and industrial exporters across India, USA, UAE, Germany, and 180+ countries.",
-          },
-          {
-            question: "Is posting a bulk requirement (RFQ) free for buyers?",
-            answer: "Yes, verified buyers can post unlimited bulk buying requirements (RFQs) 100% free with zero platform commissions or hidden fees.",
-          },
-          {
-            question: "How does BulkSkart verify suppliers and factories?",
-            answer: "Every manufacturer undergoes rigorous verification including business license audits, tax identification (GST/IEC), production facility certifications (ISO, CE, FDA), and historical trade performance reviews.",
-          },
-          {
-            question: "What is Trade Assurance on BulkSkart?",
-            answer: "Trade Assurance protects buyer purchase orders with guaranteed on-time dispatch, product quality standards, milestone escrow payments, and secure dispute resolution.",
-          },
-          {
-            question: "Can suppliers receive live buyer requirements?",
-            answer: "Yes, verified manufacturers receive instant alerts for live buying tenders matching their product categories and can submit direct factory quotations to buyers.",
-          },
-          {
-            question: "Is delivery free on BulkSkart?",
-            answer: "Yes. Free delivery applies to every order placed on BulkSkart. No delivery fee is added at checkout, for any order value or product category.",
-          },
-          {
-            question: "Can I estimate a monthly installment for a bulk order?",
-            answer: "Yes. The order loan calculator on the homepage estimates a monthly installment from the order value, down payment, interest rate, and tenure. Delivery on that order stays free. The figure is for planning and is not a credit approval.",
-          },
-        ]}
+        faq={HOME_FAQS}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'WebPage',
@@ -798,6 +801,29 @@ export default function HomePage() {
               <span className="text-muted-foreground">•</span>
               <Link to="/blog/how-to-find-manufacturers-in-india" className="text-muted-foreground hover:text-primary underline">Finding Indian Factories Guide</Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visible FAQ: the same content as the FAQPage structured data above */}
+      <section className="border-t border-border bg-background py-12 md:py-16">
+        <div className="mx-auto max-w-3xl px-4 md:px-6">
+          <SectionHeader
+            align="center"
+            eyebrow="FAQ"
+            title="Frequently asked questions"
+            subtitle="Answers about BulkSkart, bulk RFQs, supplier verification, Trade Assurance and delivery."
+          />
+          <div className="mt-8 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
+            {HOME_FAQS.map((item) => (
+              <details key={item.question} className="group p-5 md:p-6">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-bold text-foreground">
+                  {item.question}
+                  <ChevronRight className="h-4 w-4 shrink-0 text-primary transition-transform group-open:rotate-90" />
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
