@@ -9,11 +9,6 @@ interface SectionHeaderProps {
   /** Optional content on the right (md+) or below the heading (mobile). */
   action?: React.ReactNode;
   align?: 'left' | 'center';
-  /**
-   * `surface` follows the theme tokens and suits sections on the page background.
-   * `dark` keeps white text for sections with a fixed dark background.
-   */
-  tone?: 'surface' | 'dark';
   className?: string;
 }
 
@@ -24,10 +19,8 @@ export default function SectionHeader({
   subtitle,
   action,
   align = 'left',
-  tone = 'surface',
   className,
 }: SectionHeaderProps) {
-  const dark = tone === 'dark';
   const centered = align === 'center';
 
   return (
@@ -47,19 +40,13 @@ export default function SectionHeader({
         )}
         <h2
           className={cn(
-            'mt-3 text-2xl font-black leading-tight tracking-tight md:text-3xl',
-            dark ? 'text-white' : 'text-foreground',
+            'mt-3 text-2xl font-black leading-tight tracking-tight text-foreground md:text-3xl',
           )}
         >
           {title}
         </h2>
         {subtitle && (
-          <p
-            className={cn(
-              'mt-2 text-sm leading-relaxed text-pretty md:text-base',
-              dark ? 'text-slate-300' : 'text-muted-foreground',
-            )}
-          >
+          <p className="mt-2 text-sm leading-relaxed text-pretty text-muted-foreground md:text-base">
             {subtitle}
           </p>
         )}

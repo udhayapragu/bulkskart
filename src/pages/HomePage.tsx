@@ -285,8 +285,8 @@ function HeroBanner() {
               className="w-full h-full object-cover object-center"
             />
           </picture>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0d1117]/93 via-[#0d1117]/72 to-[#0d1117]/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/55 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/93 via-background/72 to-background/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -316,7 +316,7 @@ function HeroBanner() {
                 className="w-full h-full object-cover object-left"
               />
             </picture>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0d1117]/98 via-[#0d1117]/80 to-[#0d1117]/40 md:to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/98 via-background/80 to-background/40 md:to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -334,29 +334,29 @@ function HeroBanner() {
           >
             {/* Tag pill */}
             <motion.div
-              className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-2.5 py-0.5 mb-2 sm:mb-2.5 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 bg-foreground/10 border border-border rounded-full px-2.5 py-0.5 mb-2 sm:mb-2.5 backdrop-blur-sm"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A00] animate-pulse" />
-              <span className="text-[9.5px] font-bold text-white/80 uppercase tracking-widest">{slide.tag}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-[9.5px] font-bold text-foreground/80 uppercase tracking-widest">{slide.tag}</span>
             </motion.div>
 
             {/* Exactly one clear H1 per SEO requirement */}
             <motion.h1
-              className="text-[22px] min-[360px]:text-[26px] sm:text-[34px] md:text-[46px] font-black text-white leading-[1.08] tracking-tight mb-2 sm:mb-2.5"
+              className="text-[22px] min-[360px]:text-[26px] sm:text-[34px] md:text-[46px] font-black text-foreground leading-[1.08] tracking-tight mb-2 sm:mb-2.5"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.18 }}
             >
               <span>India’s B2B </span>
-              <span className="text-[#FF5A00] block">Bulk Buying & Wholesale Marketplace</span>
+              <span className="text-primary block">Bulk Buying & Wholesale Marketplace</span>
             </motion.h1>
 
             {/* Slide Action Subtitle (h2) */}
             <motion.h2
-              className="text-[12.5px] sm:text-[14px] font-bold text-white/90 mb-1"
+              className="text-[12.5px] sm:text-[14px] font-bold text-foreground/90 mb-1"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.22 }}
@@ -366,7 +366,7 @@ function HeroBanner() {
 
             {/* Sub-copy */}
             <motion.p
-              className="text-[11.5px] min-[360px]:text-[12.5px] sm:text-[13.5px] md:text-[15px] text-white/75 leading-relaxed mb-3 sm:mb-4 max-w-[440px]"
+              className="text-[11.5px] min-[360px]:text-[12.5px] sm:text-[13.5px] md:text-[15px] text-foreground/75 leading-relaxed mb-3 sm:mb-4 max-w-[440px]"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.34 }}
@@ -383,8 +383,8 @@ function HeroBanner() {
             >
               {TRUST_FEATURES.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex flex-col items-center gap-1 text-center min-w-0">
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FF5A00] shrink-0" />
-                  <span className="text-[8.5px] min-[360px]:text-[9px] md:text-[10px] text-white/70 font-medium leading-tight truncate w-full">{label}</span>
+                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary shrink-0" />
+                  <span className="text-[8.5px] min-[360px]:text-[9px] md:text-[10px] text-foreground/70 font-medium leading-tight truncate w-full">{label}</span>
                 </div>
               ))}
             </motion.div>
@@ -397,12 +397,12 @@ function HeroBanner() {
               transition={{ delay: 0.48 }}
             >
               <Link to={slide.cta1.to} className="w-full min-[340px]:flex-1 sm:w-auto sm:flex-none">
-                <Button className="w-full sm:w-auto bg-[#FF5A00] hover:bg-[#e04e00] text-white font-bold h-10 sm:h-11 px-3.5 sm:px-5 text-[12px] sm:text-[13px] rounded-xl shadow-[0_3px_0_#922f00] gap-1.5 sm:gap-2 transition-all active:shadow-none active:translate-y-0.5">
+                <Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-foreground font-bold h-10 sm:h-11 px-3.5 sm:px-5 text-[12px] sm:text-[13px] rounded-xl shadow-[0_3px_0_#922f00] gap-1.5 sm:gap-2 transition-all active:shadow-none active:translate-y-0.5">
                   <Package className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">{slide.cta1.label}</span> <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                 </Button>
               </Link>
               <Link to={slide.cta2.to} className="w-full min-[340px]:flex-1 sm:w-auto sm:flex-none">
-                <Button className="w-full sm:w-auto bg-[#FF5A00] hover:bg-[#e04e00] text-white font-bold h-10 sm:h-11 px-3.5 sm:px-5 text-[12px] sm:text-[13px] rounded-xl shadow-[0_3px_0_#922f00] gap-1.5 sm:gap-2 transition-all active:shadow-none active:translate-y-0.5">
+                <Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-foreground font-bold h-10 sm:h-11 px-3.5 sm:px-5 text-[12px] sm:text-[13px] rounded-xl shadow-[0_3px_0_#922f00] gap-1.5 sm:gap-2 transition-all active:shadow-none active:translate-y-0.5">
                   <ChevronRight className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">{slide.cta2.label}</span>
                 </Button>
               </Link>
@@ -418,11 +418,11 @@ function HeroBanner() {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`rounded-full transition-all duration-300 ${i === current ? 'w-7 h-2.5 bg-[#FF5A00]' : 'w-2.5 h-2.5 bg-white/30 hover:bg-white/60'}`}
+            className={`rounded-full transition-all duration-300 ${i === current ? 'w-7 h-2.5 bg-primary' : 'w-2.5 h-2.5 bg-foreground/30 hover:bg-foreground/60'}`}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
-        <span className="ml-1 text-[10px] text-white/70 font-mono">
+        <span className="ml-1 text-[10px] text-foreground/70 font-mono">
           {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
       </div>
@@ -430,25 +430,25 @@ function HeroBanner() {
       {/* Prev / Next arrows */}
       <button
         onClick={prev}
-        className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+        className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-foreground/10 border border-border backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-foreground/20 transition-colors"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-4 h-4" />
       </button>
       <button
         onClick={next}
-        className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+        className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-foreground/10 border border-border backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-foreground/20 transition-colors"
         aria-label="Next slide"
       >
         <ChevronRight className="w-4 h-4" />
       </button>
 
       {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/10 z-20">
+      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-foreground/10 z-20">
         {!paused && (
           <motion.div
             key={current}
-            className="h-full bg-[#FF5A00]"
+            className="h-full bg-primary"
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
             transition={{ duration: SLIDE_DURATION / 1000, ease: 'linear' }}
@@ -492,7 +492,7 @@ function TopCategoriesSection() {
             </h2>
             <Link
               to="/products"
-              className="text-[#FF5A00] font-bold text-sm sm:text-base flex items-center gap-1 hover:underline transition-colors shrink-0"
+              className="text-primary font-bold text-sm sm:text-base flex items-center gap-1 hover:underline transition-colors shrink-0"
             >
               View All <ArrowRight className="w-4 h-4" />
             </Link>
@@ -504,7 +504,7 @@ function TopCategoriesSection() {
               <Link
                 key={cat.slug}
                 to={`/products?category=${cat.slug}`}
-                className="bg-card dark:bg-[#12151e] border border-border/60 hover:border-[#FF5A00]/50 rounded-2xl p-2.5 flex flex-col items-center justify-between text-center group cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 active:scale-98 h-full w-full min-w-0"
+                className="bg-card dark:bg-card border border-border/60 hover:border-primary/50 rounded-2xl p-2.5 flex flex-col items-center justify-between text-center group cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 active:scale-98 h-full w-full min-w-0"
               >
                 {/* Image Container with 4:3 Aspect Ratio */}
                 <div className="w-full aspect-[4/3] rounded-xl overflow-hidden bg-muted relative mb-1.5 shrink-0">
@@ -517,10 +517,10 @@ function TopCategoriesSection() {
                 </div>
 
                 {/* Category Title */}
-                <span className="text-xs md:text-sm font-bold text-foreground leading-tight text-center line-clamp-2 group-hover:text-[#FF5A00] transition-colors px-0.5 mt-auto min-h-[30px] flex items-center justify-center">
+                <span className="text-xs md:text-sm font-bold text-foreground leading-tight text-center line-clamp-2 group-hover:text-primary transition-colors px-0.5 mt-auto min-h-[30px] flex items-center justify-center">
                   {cat.label.replace('\n', ' ')}
                 </span>
-                <span className="text-[10px] text-[#FF5A00] font-semibold mt-1">
+                <span className="text-[10px] text-primary font-semibold mt-1">
                   {cat.rfqCount}
                 </span>
               </Link>
@@ -533,7 +533,7 @@ function TopCategoriesSection() {
               <Link
                 key={cat.slug}
                 to={`/products?category=${cat.slug}`}
-                className="shrink-0 w-[115px] min-[360px]:w-[125px] snap-start bg-card dark:bg-[#12151e] border border-border/60 hover:border-[#FF5A00]/50 rounded-xl p-2 flex flex-col items-center justify-between text-center group cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 active:scale-98"
+                className="shrink-0 w-[115px] min-[360px]:w-[125px] snap-start bg-card dark:bg-card border border-border/60 hover:border-primary/50 rounded-xl p-2 flex flex-col items-center justify-between text-center group cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 active:scale-98"
               >
                 <div className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted relative mb-1.5 shrink-0">
                   <SafeImage
@@ -543,10 +543,10 @@ function TopCategoriesSection() {
                     sizes="125px"
                   />
                 </div>
-                <span className="text-[11px] font-bold text-foreground leading-tight text-center line-clamp-2 group-hover:text-[#FF5A00] transition-colors px-0.5 mt-auto min-h-[28px] flex items-center justify-center">
+                <span className="text-[11px] font-bold text-foreground leading-tight text-center line-clamp-2 group-hover:text-primary transition-colors px-0.5 mt-auto min-h-[28px] flex items-center justify-center">
                   {cat.label.replace('\n', ' ')}
                 </span>
-                <span className="text-[9px] text-[#FF5A00] font-semibold mt-0.5 truncate w-full">
+                <span className="text-[9px] text-primary font-semibold mt-0.5 truncate w-full">
                   {cat.rfqCount}
                 </span>
               </Link>
@@ -599,7 +599,7 @@ export default function HomePage() {
     <MainLayout>
       <PageMeta
         title="BulkSkart | B2B Wholesale Marketplace & Bulk Suppliers in India"
-        description="Find verified manufacturers and wholesale suppliers in India. Every BulkSkart order includes free delivery. Compare bulk prices, estimate an order installment, post free RFQs, and source factory-direct products."
+        description="Source from verified manufacturers and wholesale suppliers in India. Free delivery on every order, free RFQs and factory-direct bulk prices."
         keywords="B2B marketplace India, wholesale suppliers India, bulk suppliers, manufacturers in India, post RFQ, factory direct wholesale, MOQ, bulk buying"
         canonical="https://www.bulkskart.com/"
         ogImage="https://www.bulkskart.com/brand/bulkskart-logo.jpg"
@@ -643,7 +643,7 @@ export default function HomePage() {
           '@id': 'https://www.bulkskart.com/#webpage',
           url: 'https://www.bulkskart.com/',
           name: 'BulkSkart | B2B Wholesale Marketplace & Bulk Suppliers in India',
-          description: 'Find verified manufacturers and wholesale suppliers in India. Every BulkSkart order includes free delivery. Compare bulk prices, estimate an order installment, post free RFQs, and source factory-direct products.',
+          description: 'Source from verified manufacturers and wholesale suppliers in India. Free delivery on every order, free RFQs and factory-direct bulk prices.',
           isPartOf: { '@id': 'https://www.bulkskart.com/#website' },
           about: { '@id': 'https://www.bulkskart.com/#organization' },
           inLanguage: 'en-IN',
@@ -728,7 +728,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-muted-foreground leading-relaxed">
               <div className="space-y-3 bg-background/60 p-5 rounded-2xl border border-border">
                 <h3 className="text-sm sm:text-base font-bold text-foreground flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-[#FF5A00]" />
+                  <Building2 className="w-4 h-4 text-primary" />
                   <span>What Bulkskart Is & Who It Is For</span>
                 </h3>
                 <p>
@@ -741,24 +741,24 @@ export default function HomePage() {
 
               <div className="space-y-3 bg-background/60 p-5 rounded-2xl border border-border">
                 <h3 className="text-sm sm:text-base font-bold text-foreground flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#FF5A00]" />
+                  <ShieldCheck className="w-4 h-4 text-primary" />
                   <span>Manufacturers vs Wholesalers</span>
                 </h3>
                 <p>
-                  Our verified network distinguishes between primary <Link to="/manufacturers" className="text-[#FF5A00] font-semibold hover:underline">Manufacturers</Link> offering custom OEM/ODM production runs and master <Link to="/wholesale-suppliers" className="text-[#FF5A00] font-semibold hover:underline">Wholesalers</Link> maintaining ready-to-ship pallet inventory.
+                  Our verified network distinguishes between primary <Link to="/manufacturers" className="text-primary font-semibold hover:underline">Manufacturers</Link> offering custom OEM/ODM production runs and master <Link to="/wholesale-suppliers" className="text-primary font-semibold hover:underline">Wholesalers</Link> maintaining ready-to-ship pallet inventory.
                 </p>
                 <p>
-                  Buyers can filter by business type, production capacity, ISO compliance, and location clusters like <Link to="/manufacturers-in-tamil-nadu" className="text-[#FF5A00] font-semibold hover:underline">Tamil Nadu</Link>, <Link to="/manufacturers-in-coimbatore" className="text-[#FF5A00] font-semibold hover:underline">Coimbatore</Link>, <Link to="/manufacturers-in-chennai" className="text-[#FF5A00] font-semibold hover:underline">Chennai</Link>, and Gujarat.
+                  Buyers can filter by business type, production capacity, ISO compliance, and location clusters like <Link to="/manufacturers-in-tamil-nadu" className="text-primary font-semibold hover:underline">Tamil Nadu</Link>, <Link to="/manufacturers-in-coimbatore" className="text-primary font-semibold hover:underline">Coimbatore</Link>, <Link to="/manufacturers-in-chennai" className="text-primary font-semibold hover:underline">Chennai</Link>, and Gujarat.
                 </p>
               </div>
 
               <div className="space-y-3 bg-background/60 p-5 rounded-2xl border border-border">
                 <h3 className="text-sm sm:text-base font-bold text-foreground flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#FF5A00]" />
+                  <FileText className="w-4 h-4 text-primary" />
                   <span>RFQ Workflow & Quotation Comparison</span>
                 </h3>
                 <p>
-                  Posting a <Link to="/post-requirement" className="text-[#FF5A00] font-semibold hover:underline">Request for Quotation (RFQ)</Link> takes less than 60 seconds. Specify required quantities, target prices, delivery incoterms (FOB, CIF, EXW), and technical drawings.
+                  Posting a <Link to="/post-requirement" className="text-primary font-semibold hover:underline">Request for Quotation (RFQ)</Link> takes less than 60 seconds. Specify required quantities, target prices, delivery incoterms (FOB, CIF, EXW), and technical drawings.
                 </p>
                 <p>
                   Qualified suppliers submit itemized quotes with clear breakdowns for unit costs, sample availability, mold tooling fees, and estimated production lead times, allowing buyers to compare bids side-by-side.
@@ -767,11 +767,11 @@ export default function HomePage() {
 
               <div className="space-y-3 bg-background/60 p-5 rounded-2xl border border-border">
                 <h3 className="text-sm sm:text-base font-bold text-foreground flex items-center gap-2">
-                  <Package className="w-4 h-4 text-[#FF5A00]" />
+                  <Package className="w-4 h-4 text-primary" />
                   <span>MOQ Flexibility & Tiered Bulk Pricing</span>
                 </h3>
                 <p>
-                  Each listing in our <Link to="/bulk-products" className="text-[#FF5A00] font-semibold hover:underline">bulk products catalog</Link> clearly displays the Minimum Order Quantity (MOQ) alongside quantity-discount tiers.
+                  Each listing in our <Link to="/bulk-products" className="text-primary font-semibold hover:underline">bulk products catalog</Link> clearly displays the Minimum Order Quantity (MOQ) alongside quantity-discount tiers.
                 </p>
                 <p>
                   Buyers can order pre-production commercial samples before approving full container volumes, with milestone payments safely protected through Trade Assurance until goods pass quality inspection.
@@ -782,21 +782,21 @@ export default function HomePage() {
             {/* Quick Sourcing Hub Links */}
             <div className="mt-6 pt-5 border-t border-border flex flex-wrap items-center justify-center gap-2 text-xs">
               <span className="font-bold text-foreground mr-1">Popular Sourcing Hubs:</span>
-              <Link to="/b2b-marketplace" className="text-muted-foreground hover:text-[#FF5A00] underline">B2B Marketplace</Link>
+              <Link to="/b2b-marketplace" className="text-muted-foreground hover:text-primary underline">B2B Marketplace</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/manufacturers-in-india" className="text-muted-foreground hover:text-[#FF5A00] underline">Manufacturers in India</Link>
+              <Link to="/manufacturers-in-india" className="text-muted-foreground hover:text-primary underline">Manufacturers in India</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/wholesale-suppliers-in-india" className="text-muted-foreground hover:text-[#FF5A00] underline">Wholesale Suppliers India</Link>
+              <Link to="/wholesale-suppliers-in-india" className="text-muted-foreground hover:text-primary underline">Wholesale Suppliers India</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/manufacturers-in-tamil-nadu" className="text-muted-foreground hover:text-[#FF5A00] underline">Tamil Nadu Factories</Link>
+              <Link to="/manufacturers-in-tamil-nadu" className="text-muted-foreground hover:text-primary underline">Tamil Nadu Factories</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/manufacturers-in-coimbatore" className="text-muted-foreground hover:text-[#FF5A00] underline">Coimbatore Pumps & Textiles</Link>
+              <Link to="/manufacturers-in-coimbatore" className="text-muted-foreground hover:text-primary underline">Coimbatore Pumps & Textiles</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/manufacturers-in-chennai" className="text-muted-foreground hover:text-[#FF5A00] underline">Chennai Industrial Hub</Link>
+              <Link to="/manufacturers-in-chennai" className="text-muted-foreground hover:text-primary underline">Chennai Industrial Hub</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/blog/what-is-moq" className="text-muted-foreground hover:text-[#FF5A00] underline">What is MOQ?</Link>
+              <Link to="/blog/what-is-moq" className="text-muted-foreground hover:text-primary underline">What is MOQ?</Link>
               <span className="text-muted-foreground">•</span>
-              <Link to="/blog/how-to-find-manufacturers-in-india" className="text-muted-foreground hover:text-[#FF5A00] underline">Finding Indian Factories Guide</Link>
+              <Link to="/blog/how-to-find-manufacturers-in-india" className="text-muted-foreground hover:text-primary underline">Finding Indian Factories Guide</Link>
             </div>
           </div>
         </div>
@@ -805,7 +805,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════
           FINAL CTA BANNER
       ═══════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-[#1a1a2e] dark:bg-[#15181F]">
+      <section className="relative overflow-hidden bg-card dark:bg-card">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
             src={SHIPPING_BANNER}
@@ -822,13 +822,13 @@ export default function HomePage() {
                 <Globe className="w-6 h-6 md:w-8 md:h-8 text-primary" />
               </div>
               <div>
-                <h2 className="text-[16px] md:text-[22px] font-black text-white leading-snug">
+                <h2 className="text-[16px] md:text-[22px] font-black text-foreground leading-snug">
                   Join thousands of businesses trading smarter with Bulkskart.
                 </h2>
               </div>
             </div>
             <Link to="/auth?tab=register" className="w-full md:w-auto shrink-0">
-              <Button className="w-full md:w-auto bg-primary hover:bg-primary/90 text-white font-bold h-12 px-8 text-[14px] rounded-xl shadow-[0_4px_0_hsl(20_100%_30%)] gap-2 transition-all active:shadow-none active:translate-y-0.5">
+              <Button className="w-full md:w-auto bg-primary hover:bg-primary/90 text-foreground font-bold h-12 px-8 text-[14px] rounded-xl shadow-[0_4px_0_hsl(20_100%_30%)] gap-2 transition-all active:shadow-none active:translate-y-0.5">
                 Create Free Account <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
