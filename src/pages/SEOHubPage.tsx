@@ -66,7 +66,7 @@ export const SEO_HUBS: Record<string, SEOHubConfig> = {
   },
   'wholesale-suppliers': {
     slug: 'wholesale-suppliers',
-    title: 'Verified Wholesale Suppliers in India | Bulk Distributors | Bulkskart',
+    title: 'BulkSkart Wholesale Suppliers in India | Verified Bulk Distributors',
     metaDescription: 'Source bulk goods directly from verified wholesale suppliers and distributors in India. Compare wholesale price lists, MOQs, and stock availability on Bulkskart.',
     h1: 'Verified Wholesale Suppliers & Bulk Distributors in India',
     tagline: 'Source high-volume wholesale commodities, FMCG, textiles, and industrial hardware at direct distributor rates.',
