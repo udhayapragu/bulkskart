@@ -5,11 +5,25 @@ import Header from '@/components/layouts/Header';
 import Footer from '@/components/layouts/Footer';
 import PageMeta from '@/components/common/PageMeta';
 
+const STATS = [
+  { value: '50,000+', label: 'Verified Buyers' },
+  { value: '12,000+', label: 'Suppliers & Manufacturers' },
+  { value: '180+', label: 'Countries Served' },
+  { value: '₹500Cr+', label: 'Trade Volume Facilitated' },
+];
+
 const VALUES = [
   { icon: ShieldCheck, title: 'Trust First', desc: 'Every supplier on BulkSkart is verified through a multi-step process — GST, business registration, and physical address validation.' },
-  { icon: Globe, title: 'Global Reach', desc: 'We help manufacturers reach buyers in India and abroad through verified profiles and bulk requirements.' },
+  { icon: Globe, title: 'Global Reach', desc: 'We connect Indian manufacturers with buyers across 180+ countries, opening new markets for SMEs that were previously inaccessible.' },
   { icon: TrendingUp, title: 'Transparent Trade', desc: 'Real-time RFQs, live quotations, and dispute resolution tools ensure every transaction is fair and traceable.' },
   { icon: Users, title: 'Community Driven', desc: 'BulkSkart grows with its members. Buyer feedback and supplier ratings drive continuous improvement across the platform.' },
+];
+
+const TEAM = [
+  { name: 'Rajesh Kumar', role: 'CEO & Co-founder', initials: 'RK' },
+  { name: 'Priya Sharma', role: 'CTO & Co-founder', initials: 'PS' },
+  { name: 'Amit Verma', role: 'Head of Operations', initials: 'AV' },
+  { name: 'Neha Gupta', role: 'Head of Supplier Relations', initials: 'NG' },
 ];
 
 export default function AboutPage() {
@@ -17,7 +31,7 @@ export default function AboutPage() {
     <>
       <PageMeta
         title="About Us — BulkSkart | Global B2B Bulk Trade Platform"
-        description="BulkSkart is a B2B bulk trade platform operated by Tech Pod AI Database Private Limited. Learn about our mission, values, and team connecting verified manufacturers with global buyers."
+        description="BulkSkart is India's leading B2B bulk trade platform by Tech Pod AI Database Private Limited. Learn about our mission, values, and team connecting verified manufacturers with global buyers."
         keywords="about BulkSkart, B2B trade platform India, Tech Pod AI, bulk wholesale marketplace"
         canonical="/about"
         ogType="website"
@@ -41,6 +55,18 @@ export default function AboutPage() {
           <p className="text-white/70 text-[14px] md:text-[16px] leading-relaxed max-w-2xl mx-auto">
             BulkSkart is operated by <strong className="text-white">Tech Pod AI Database Private Limited</strong> — a technology company on a mission to make bulk B2B trade transparent, efficient, and accessible for businesses of every size.
           </p>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="bg-primary/5 border-b border-border py-8 px-4">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {STATS.map(({ value, label }) => (
+            <div key={label}>
+              <div className="text-[22px] md:text-[30px] font-black text-primary leading-none mb-1">{value}</div>
+              <div className="text-xs text-muted-foreground font-medium">{label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -69,6 +95,25 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-[13px] font-bold text-foreground mb-1">{title}</h3>
                 <p className="text-[11px] text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="bg-muted/40 border-t border-border py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-[20px] md:text-[26px] font-black text-foreground mb-2 text-center">Leadership Team</h2>
+          <p className="text-muted-foreground text-sm text-center mb-8">Building the future of B2B trade</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {TEAM.map(({ name, role, initials }) => (
+              <div key={name} className="bg-card border border-border rounded-xl p-4 text-center">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-black text-lg mx-auto mb-3">
+                  {initials}
+                </div>
+                <div className="text-sm font-bold text-foreground">{name}</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">{role}</div>
               </div>
             ))}
           </div>

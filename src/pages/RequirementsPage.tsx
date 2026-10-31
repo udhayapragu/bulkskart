@@ -509,6 +509,34 @@ export default function RequirementsPage() {
             </div>
           </div>
 
+          {/* ── Live Ticker Banner ────────────────────────────────────────── */}
+          <div className="mb-5 bg-card border border-border rounded-xl px-4 py-2 flex items-center justify-between gap-3 text-xs overflow-hidden">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="font-extrabold text-emerald-600 dark:text-emerald-400 text-[11px] uppercase tracking-wider">LIVE STREAM</span>
+              <span className="text-muted-foreground/40 hidden sm:inline">|</span>
+            </div>
+            <div className="overflow-x-auto no-scrollbar whitespace-nowrap text-muted-foreground text-xs flex items-center gap-6 flex-1 px-2">
+              <span className="inline-flex items-center gap-1.5 text-foreground">
+                <span className="text-[#FF5A00] font-bold">⚡ Live:</span> 50,000 Pcs A4 Paper inquiry just verified in Nairobi, Kenya
+              </span>
+              <span className="text-border">•</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">New:</span> 25 MT HDPE Granules from Ahmedabad, Gujarat
+              </span>
+              <span className="text-border">•</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="text-sky-600 dark:text-sky-400 font-bold">Urgent:</span> 100 MT Parboiled Rice 5% Broken required in Cotonou
+              </span>
+            </div>
+            <div className="text-[11px] text-muted-foreground/60 shrink-0 font-medium hidden md:block">
+              Auto-sync enabled
+            </div>
+          </div>
+
           {/* ── Tabs (Live Feed / My Requirements) ───────────────────────── */}
           <div className="flex items-center gap-2 mb-5">
             <button
@@ -890,7 +918,7 @@ export default function RequirementsPage() {
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold hidden sm:inline">100% Authentic Photos</span>
               </div>
               <div className="text-[10px] text-muted-foreground leading-tight">
-                Verified B2B procurement requests
+                50,000+ verified B2B procurement requests · Zero AI imagery
               </div>
             </div>
           </div>

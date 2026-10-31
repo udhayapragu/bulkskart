@@ -77,7 +77,7 @@ export default function NotFound() {
               <div>
                 <ShieldCheck className="w-5 h-5 text-[#FF5A00] mb-2" />
                 <p className="text-xs font-bold text-foreground group-hover:text-[#FF5A00]">Manufacturers</p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">Verified plants</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">5,000+ verified plants</p>
               </div>
               <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-[#FF5A00] mt-3" />
             </Link>

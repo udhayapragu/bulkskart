@@ -47,7 +47,6 @@ import {
 } from '@/lib/aiSalesAssistant';
 import { generateSyntheticRequirement } from '@/lib/largeRequirementsDataset';
 import { getIndianBulkOrder, indexFromIndianOrderNumber } from '@/lib/bulkOrdersIndiaDataset';
-import { SAMPLE_CATALOG_ENABLED } from '@/config/catalog';
 import { getBuyerProfileForRequirement, BuyerCompanyProfile } from '@/lib/buyerProfilesPool';
 import { resolveRfqImage } from '@/lib/contentImages';
 
@@ -364,7 +363,7 @@ export default function RequirementDetailsPage() {
               created_at: new Date().toISOString()
             }
           } as Requirement;
-        } else if (SAMPLE_CATALOG_ENABLED && indexFromIndianOrderNumber(rfqId) != null) {
+        } else if (indexFromIndianOrderNumber(rfqId) != null) {
           const lead = getIndianBulkOrder(indexFromIndianOrderNumber(rfqId)!);
           const qtyMatch = lead.quantity.match(/[\d,]+/);
           const quantity = qtyMatch ? parseInt(qtyMatch[0].replace(/,/g, ''), 10) : 1;

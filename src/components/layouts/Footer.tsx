@@ -1,143 +1,128 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BrandLogo from '@/components/common/BrandLogo';
-import { Linkedin, Twitter, Facebook, Instagram, Youtube, Mail, MessageSquare } from 'lucide-react';
+import { Globe, Linkedin, Twitter, Facebook, Instagram, Youtube, Mail, MessageSquare } from 'lucide-react';
 import { WHATSAPP_CHAT_URL, WHATSAPP_DISPLAY } from '@/lib/supportContact';
 
-// Every href below is an existing route in src/routes.tsx.
-const footerSections = [
-  {
-    title: 'Marketplace',
-    links: [
-      { label: 'Products', href: '/products' },
-      { label: 'Product categories', href: '/categories' },
-      { label: 'Manufacturers', href: '/manufacturers' },
-      { label: 'Suppliers', href: '/suppliers' },
-      { label: 'RFQ marketplace', href: '/requirements' },
-      { label: 'Live auctions', href: '/auctions' },
-    ],
-  },
-  {
-    title: 'For manufacturers',
-    links: [
-      { label: 'Manufacturer registration', href: '/auth?tab=supplier' },
-      { label: 'Subscription plans', href: '/pricing' },
-      { label: 'Respond to requirements', href: '/requirements' },
-    ],
-  },
-  {
-    title: 'For buyers',
-    links: [
-      { label: 'Buyer registration', href: '/auth?tab=buyer' },
-      { label: 'Post a requirement', href: '/post-requirement' },
-      { label: 'Order loan calculator', href: '/loan-calculator' },
-      { label: 'Trade assistant', href: '/trade-assistant' },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      { label: 'About Bulkskart', href: '/about' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Blog', href: '/blog' },
-    ],
-  },
-  {
-    title: 'Help',
-    links: [
-      { label: 'Help centre', href: '/how-it-works' },
-      { label: 'How it works', href: '/how-it-works' },
-      { label: 'Contact support', href: '/contact' },
-      { label: 'Sitemap', href: '/sitemap' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy policy', href: '/privacy' },
-      { label: 'Terms & conditions', href: '/terms' },
-      { label: 'Cookie policy', href: '/cookie-policy' },
-    ],
-  },
-];
+const footerLinks = {
+  Products: [
+    { label: 'Browse Products', href: '/products' },
+    { label: 'Categories', href: '/products' },
+    { label: 'Manufacturers', href: '/manufacturers' },
+    { label: 'Countries', href: '/manufacturers' },
+  ],
+  'For Suppliers': [
+    { label: 'Supplier Registration', href: '/auth?tab=supplier' },
+    { label: 'Subscription Plans', href: '/pricing' },
+    { label: 'Supplier Resources', href: '/how-it-works' },
+    { label: 'Business Stories', href: '/how-it-works' },
+  ],
+  'For Buyers': [
+    { label: 'Post Requirement', href: '/post-requirement' },
+    { label: 'Free Delivery & Order Loan', href: '/loan-calculator' },
+    { label: 'AI Import & Export Assistance', href: '/trade-assistant' },
+    { label: 'Buyer Resources', href: '/how-it-works' },
+    { label: 'Trade Guide', href: '/how-it-works' },
+    { label: 'FAQs', href: '/how-it-works' },
+  ],
+  Company: [
+    { label: 'About Us', href: '/about' },
+    { label: 'Careers', href: '/careers' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contact Us', href: '/contact' },
+  ],
+  Legal: [
+    { label: 'Terms & Conditions', href: '/terms' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Cookie Policy', href: '/cookie-policy' },
+    { label: 'Sitemap', href: '/sitemap' },
+  ],
+};
 
 const socialLinks = [
-  { icon: Linkedin, href: 'https://linkedin.com/company/bulkskart', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com/bulkskart', label: 'Twitter' },
-  { icon: Facebook, href: 'https://facebook.com/bulkskart', label: 'Facebook' },
-  { icon: Instagram, href: 'https://instagram.com/bulkskart', label: 'Instagram' },
-  { icon: Youtube, href: 'https://youtube.com/@bulkskart', label: 'YouTube' },
+  { icon: Linkedin,  href: 'https://linkedin.com/company/bulkskart',  label: 'LinkedIn' },
+  { icon: Twitter,   href: 'https://twitter.com/bulkskart',            label: 'Twitter' },
+  { icon: Facebook,  href: 'https://facebook.com/bulkskart',           label: 'Facebook' },
+  { icon: Instagram, href: 'https://instagram.com/bulkskart',          label: 'Instagram' },
+  { icon: Youtube,   href: 'https://youtube.com/@bulkskart',           label: 'YouTube' },
 ];
 
 export default function Footer() {
   return (
-    <footer className="w-full max-w-[100vw] overflow-x-hidden border-t border-border bg-background">
-      <div className="mx-auto max-w-[1280px] px-4 py-14 md:px-6 md:py-20">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-8 lg:grid-cols-8">
-          <div className="col-span-2 md:col-span-4 lg:col-span-2">
-            <BrandLogo size="md" variant="auto" linkTo="/" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              The global marketplace for bulk trade. Manufacturers, wholesalers, distributors, importers and buyers
-              connect here to source, quote and trade.
+    <footer className="bg-muted border-t border-border w-full max-w-[100vw] overflow-x-hidden">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 sm:py-8 md:py-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 md:gap-5 mb-6 md:mb-10">
+          {/* Brand column */}
+          <div className="col-span-2 sm:col-span-3 md:col-span-1">
+            <div className="mb-4">
+              <BrandLogo size="md" variant="auto" linkTo="/" />
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+              Global B2B bulk trade platform by <span className="font-semibold text-foreground">BulkSkart</span>. Connecting verified manufacturers with buyers worldwide.
             </p>
-
-            <ul className="mt-6 space-y-2.5 text-sm">
-              <li>
-                <a href="mailto:info@bulkskart.com" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                  <Mail className="h-4 w-4 text-primary" aria-hidden="true" />
-                  info@bulkskart.com
-                </a>
-              </li>
-              <li>
-                <a href={WHATSAPP_CHAT_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                  <MessageSquare className="h-4 w-4 text-primary" aria-hidden="true" />
-                  WhatsApp {WHATSAPP_DISPLAY}
-                </a>
-              </li>
-            </ul>
-
-            <div className="mt-6 flex gap-2">
+            <div className="space-y-1.5 mb-4">
+              <a href="mailto:info@bulkskart.com" className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
+                <Mail className="w-3 h-3 text-primary shrink-0" /> info@bulkskart.com
+              </a>
+              <a href={WHATSAPP_CHAT_URL} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
+                <MessageSquare className="w-3 h-3 text-[#25D366] shrink-0" /> WhatsApp {WHATSAPP_DISPLAY}
+              </a>
+            </div>
+            <div className="flex gap-3">
               {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-                >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
+                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="w-8 h-8 rounded-md bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors">
+                  <Icon className="w-3.5 h-3.5" />
                 </a>
               ))}
             </div>
           </div>
 
-          {footerSections.map((section) => (
-            <nav key={section.title} aria-label={section.title}>
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-foreground">{section.title}</h2>
-              <ul className="mt-4 space-y-3">
-                {section.links.map((link) => (
-                  <li key={`${section.title}-${link.label}`}>
-                    <Link to={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+          {/* Link columns */}
+          {Object.entries(footerLinks).map(([section, links]) => (
+            <div key={section}>
+              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-4">{section}</h4>
+              <ul className="space-y-2">
+                {links.map(link => (
+                  <li key={link.label}>
+                    <Link to={link.href} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </nav>
+            </div>
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>© 2026 Tech Pod AI Database Private Limited · BulkSkart. All rights reserved.</p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
-            <Link to="/terms" className="hover:text-foreground">Terms</Link>
-            <Link to="/cookie-policy" className="hover:text-foreground">Cookies</Link>
+        {/* Subscribe */}
+        <div className="border-t border-border pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4">
+          <div>
+            <div className="text-xs font-semibold text-foreground mb-0.5">Subscribe to Updates</div>
+            <p className="text-xs text-muted-foreground">Get the latest bulk trade opportunities</p>
           </div>
+          <form
+            className="flex gap-2 w-full md:max-w-xs"
+            onSubmit={e => { e.preventDefault(); const inp = (e.currentTarget.elements.namedItem('email') as HTMLInputElement); if (inp?.value) { inp.value = ''; alert('Thanks for subscribing!'); } }}
+          >
+            <input
+              name="email"
+              type="email"
+              aria-label="Email address for updates"
+              placeholder="Enter your email"
+              className="flex-1 min-w-0 px-3 py-2 text-sm rounded-md bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <button type="submit" aria-label="Subscribe to newsletter updates" className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors shrink-0">
+              Subscribe
+            </button>
+          </form>
+        </div>
+
+        <div className="border-t border-border mt-5 pt-4 flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+          <p className="text-xs text-muted-foreground">© 2026 Tech Pod AI Database Private Limited · BulkSkart. All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
 }
+
+

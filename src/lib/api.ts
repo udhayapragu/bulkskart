@@ -2,7 +2,6 @@ import { supabase } from '@/db/supabase';
 import { ALIBABA_VERIFIED_SUPPLIERS, getAlibabaSupplierBySlug } from '@/data/alibabaVerifiedSuppliers';
 import { EXPANDED_GLOBAL_PRODUCTS, type GlobalCatalogProduct } from '@/data/expandedGlobalProducts';
 import { CURATED_INDUSTRIAL_PRODUCTS, type CuratedProduct } from '@/data/curatedIndustrialProducts';
-import { SAMPLE_CATALOG_ENABLED } from '@/config/catalog';
 import {
   MOCKUP_VERIFIED_COMPANIES,
   MOCKUP_SUPPLIER_PRODUCTS,
@@ -290,11 +289,6 @@ export async function getCompanies(options?: {
     dbCompanies = [];
   }
 
-  // Sample suppliers are off by default: only verified database companies are returned.
-  if (!SAMPLE_CATALOG_ENABLED) {
-    return dbCompanies.slice(0, options?.limit ?? 1500);
-  }
-
   const searchQ = options?.search?.trim().toLowerCase();
   const filteredMockup = MOCKUP_VERIFIED_COMPANIES.filter((s) => {
     if (options?.verified && !s.is_verified) return false;
@@ -345,11 +339,9 @@ export async function getCompanyBySlug(slug: string): Promise<Company | null> {
   if (!slug) return null;
   const cleanSlug = slug.trim().toLowerCase();
 
-  // 1. Sample registry (only when SAMPLE_CATALOG_ENABLED)
-  if (SAMPLE_CATALOG_ENABLED) {
-    const mockupCompany = findMockupCompany(cleanSlug);
-    if (mockupCompany) return mockupCompany;
-  }
+  // 1. Check Mockup / Showcase Verified Registry
+  const mockupCompany = findMockupCompany(cleanSlug);
+  if (mockupCompany) return mockupCompany;
 
   // 2. Check Supabase by exact slug
   try {
@@ -375,18 +367,17 @@ export async function getCompanyBySlug(slug: string): Promise<Company | null> {
     // ignore
   }
 
-  // 4-5. Sample supplier datasets (only when SAMPLE_CATALOG_ENABLED)
-  if (SAMPLE_CATALOG_ENABLED) {
-    const alibabaSupplier = getAlibabaSupplierBySlug(cleanSlug);
-    if (alibabaSupplier) return alibabaSupplier;
+  // 4. Check Alibaba dataset by exact slug
+  const alibabaSupplier = getAlibabaSupplierBySlug(cleanSlug);
+  if (alibabaSupplier) return alibabaSupplier;
 
-    const matchAlibaba = ALIBABA_VERIFIED_SUPPLIERS.find(
-      s => s.id.toLowerCase() === cleanSlug ||
-           s.slug.toLowerCase() === cleanSlug ||
-           s.company_name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanSlug
-    );
-    if (matchAlibaba) return matchAlibaba;
-  }
+  // 5. Check Alibaba dataset by ID or name matching
+  const matchAlibaba = ALIBABA_VERIFIED_SUPPLIERS.find(
+    s => s.id.toLowerCase() === cleanSlug ||
+         s.slug.toLowerCase() === cleanSlug ||
+         s.company_name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanSlug
+  );
+  if (matchAlibaba) return matchAlibaba;
 
   // Not found in database or catalog — return null (never synthesize fake companies with fake GST/metrics)
   return null;
@@ -441,9 +432,6 @@ export async function getProducts(options?: {
 
   const { data } = await query;
   let combined: Product[] = Array.isArray(data) ? [...data] : [];
-
-  // Sample catalogue is off by default: only database products are returned.
-  if (!SAMPLE_CATALOG_ENABLED) return combined;
 
   // Filter and merge expanded global catalog items
   const searchLower = options?.search ? options.search.trim().toLowerCase() : '';
@@ -507,12 +495,10 @@ export async function getProducts(options?: {
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   if (!slug) return null;
 
-  // 1. Sample supplier products (only when SAMPLE_CATALOG_ENABLED)
-  if (SAMPLE_CATALOG_ENABLED) {
-    for (const list of Object.values(MOCKUP_SUPPLIER_PRODUCTS)) {
-      const found = list.find(p => p.slug === slug || p.id === slug);
-      if (found) return found;
-    }
+  // 1. Check MOCKUP_SUPPLIER_PRODUCTS
+  for (const list of Object.values(MOCKUP_SUPPLIER_PRODUCTS)) {
+    const found = list.find(p => p.slug === slug || p.id === slug);
+    if (found) return found;
   }
 
   // 2. Check Supabase by exact slug
@@ -533,10 +519,6 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       .maybeSingle();
     if (byId) return byId;
   }
-
-  // Sample lookups below are off by default. An unknown slug returns null,
-  // so the product page shows "Product Not Found" instead of a sample listing.
-  if (!SAMPLE_CATALOG_ENABLED) return null;
 
   // 3. Check EXPANDED_GLOBAL_PRODUCTS by slug or id
   const fromGlobal = EXPANDED_GLOBAL_PRODUCTS.find(p => p.slug === slug || p.id === slug);
@@ -583,7 +565,7 @@ export async function getSimilarProducts(categoryId: string | null, excludeId: s
   const { data } = await query.order('view_count', { ascending: false });
   let result: Product[] = Array.isArray(data) ? [...data] : [];
 
-  if (SAMPLE_CATALOG_ENABLED && result.length < 6 && categoryId) {
+  if (result.length < 6 && categoryId) {
     const globals = EXPANDED_GLOBAL_PRODUCTS.filter(
       p => (p.category_id === categoryId || p.category_slug === categoryId) && p.id !== excludeId
     ).slice(0, 8 - result.length);
