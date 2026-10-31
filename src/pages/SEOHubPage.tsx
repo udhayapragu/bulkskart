@@ -129,7 +129,7 @@ export const SEO_HUBS: Record<string, SEOHubConfig> = {
     canonical: 'https://www.bulkskart.com/bulk-suppliers',
     type: 'suppliers',
     introTitle: 'Engineered for High-Volume Industrial Procurement',
-    introText: 'Our bulk supplier directory aggregates verified production facilities with proven monthly capacities exceeding 100+ metric tons or 50,000+ units. Review factory inspection scores, machinery installations, export track records, and ISO/CE/GMP compliance credentials before initiating business negotiations.',
+    introText: 'Our bulk supplier directory lists verified manufacturers. Review each company\'s documents, product listings and business details before you start a negotiation.',
     keyIndustries: ['Steel & Metal Fabrication', 'Specialty Chemicals', 'Textile Spinning & Weaving', 'Automotive Components', 'Food Commodities & Spices'],
     clusters: [
       { title: 'Audited Production Capacities', desc: 'Factories vetted for machinery count, cleanroom capabilities, and worker safety.' },
@@ -485,7 +485,7 @@ export default function SEOHubPage({ forcedSlug }: { forcedSlug?: string }) {
             </div>
             <Link to="/manufacturers">
               <Button variant="outline" size="sm" className="border-border hover:border-[#FF5A00] text-xs font-bold gap-1.5 self-start">
-                <span>View All 5,000+ Suppliers</span>
+                <span>View all suppliers</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Button>
             </Link>

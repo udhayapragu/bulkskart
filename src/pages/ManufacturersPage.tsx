@@ -378,7 +378,7 @@ export default function ManufacturersPage() {
 
   // RFQ Invitation Dialog state
   const [inviteTargetCo, setInviteTargetCo] = useState<Company | null>(null);
-  const [inviteRfqId, setInviteRfqId] = useState('BS-RFQ-1042');
+  const [inviteRfqId, setInviteRfqId] = useState('');
   const [inviteMessage, setInviteMessage] = useState('We would like to invite your factory to submit a quotation for our bulk requirement.');
   const [isSendingInvite, setIsSendingInvite] = useState(false);
 
@@ -387,9 +387,7 @@ export default function ManufacturersPage() {
     setIsSendingInvite(true);
     setTimeout(() => {
       setIsSendingInvite(false);
-      toast.success(`RFQ Invitation sent to ${inviteTargetCo.company_name}!`, {
-        description: `They will receive requirement ${inviteRfqId} and notify you upon submitting quotation.`
-      });
+      toast.info('RFQ invitations are not connected yet. Use Request Quote on the manufacturer profile instead.');
       setInviteTargetCo(null);
     }, 600);
   };
@@ -484,7 +482,7 @@ export default function ManufacturersPage() {
     <MainLayout>
       <PageMeta
         title="Verified Global Manufacturers & Wholesale Exporters Directory | BulkSkart"
-        description="Search over 1,000+ verified factories, exporters, and OEM/ODM manufacturers across India, USA, UAE, Germany, Vietnam, and global manufacturing hubs. Filter by certifications (ISO, CE, FDA, GMP) and connect directly."
+        description="Search verified factories, exporters and OEM/ODM manufacturers. Filter by location and connect directly."
         keywords="verified manufacturers directory, global exporters directory, bulk suppliers, B2B wholesale factories, OEM ODM manufacturers, ISO certified suppliers India"
         canonical="/manufacturers"
         ogType="website"
@@ -503,11 +501,11 @@ export default function ManufacturersPage() {
       {/* ── Trust bar */}
       <div className="w-full bg-[#1a1a2e] text-white text-[11px] py-1.5 px-4">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-          <span className="font-medium">Trusted by 500K+ Businesses Worldwide</span>
+          <span className="font-medium">Verified manufacturers</span>
           <div className="hidden md:flex items-center gap-4 text-white/60">
             <span className="flex items-center gap-1"><Shield className="w-3 h-3 text-[#FF5A00]" /> Verified Suppliers</span>
             <span>|</span>
-            <span className="flex items-center gap-1"><Globe className="w-3 h-3 text-[#FF5A00]" /> 180+ Countries</span>
+            <span className="flex items-center gap-1"><Globe className="w-3 h-3 text-[#FF5A00]" /> Global marketplace</span>
             <span>|</span>
             <span className="flex items-center gap-1"><BadgeCheck className="w-3 h-3 text-[#FF5A00]" /> Trade Assurance</span>
           </div>
@@ -532,7 +530,7 @@ export default function ManufacturersPage() {
                 Verified <span className="text-[#FF5A00]">Suppliers</span> & Manufacturers
               </h1>
               <p className="text-white/70 text-[14px]">
-                Connect directly with certified factories, OEM/ODM producers, and verified exporters across 180+ countries
+                Connect directly with verified factories, OEM/ODM producers and exporters
               </p>
             </div>
             <Link to="/auth?tab=register">
@@ -544,12 +542,7 @@ export default function ManufacturersPage() {
 
           {/* Stats */}
           <div className="flex flex-wrap items-center gap-4 md:gap-6 mt-4 md:mt-8">
-            {[
-              { icon: Building2, value: totalCount || '500K+', label: 'Registered Suppliers' },
-              { icon: Globe, value: '180+', label: 'Countries' },
-              { icon: BadgeCheck, value: '75K+', label: 'Verified Suppliers' },
-              { icon: Star, value: '4.7', label: 'Avg. Rating' },
-            ].map(({ icon: Icon, value, label }) => (
+            {(totalCount ? [{ icon: Building2, value: totalCount.toLocaleString('en-IN'), label: 'Registered suppliers' }] : []).map(({ icon: Icon, value, label }) => (
               <div key={label} className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-[#FF5A00]/15 border border-[#FF5A00]/30 flex items-center justify-center">
                   <Icon className="w-4 h-4 text-[#FF5A00]" />
@@ -883,10 +876,7 @@ export default function ManufacturersPage() {
                 onChange={(e) => setInviteRfqId(e.target.value)}
                 className="w-full bg-background border border-border rounded-xl px-3 py-2 text-xs font-medium focus:ring-1 focus:ring-primary"
               >
-                <option value="BS-RFQ-1042">BS-RFQ-1042: Cotton Fabric – 100% Cotton (Knitted) (10,000 Metres)</option>
-                <option value="BS-RFQ-9981">BS-RFQ-9981: MS Pipe – 25mm (50,000 Pieces)</option>
-                <option value="BS-RFQ-8878">BS-RFQ-8878: Plastic Granules (HDPE) (10,000 kg)</option>
-                <option value="BS-RFQ-CUSTOM">Custom Active Buyer Requirement</option>
+                <option value="">Invitations are not available yet</option>
               </select>
             </div>
 
@@ -911,10 +901,10 @@ export default function ManufacturersPage() {
               </Button>
               <Button
                 onClick={handleSendInvite}
-                disabled={isSendingInvite}
+                disabled
                 className="flex-1 h-10 rounded-xl bg-[#FF5A00] hover:bg-[#e04e00] text-white font-bold text-xs shadow-sm"
               >
-                {isSendingInvite ? 'Sending Invitation...' : 'Send RFQ Invitation'}
+                Invitations coming soon
               </Button>
             </div>
           </div>

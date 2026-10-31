@@ -48,34 +48,19 @@ const TAB_CONTEXT: Record<string, { heading: string; sub: string; stats: { label
   login: {
     heading: 'Welcome Back to\nBulkSkart',
     sub: 'Sign in to manage your requirements, track quotes, and connect with verified global suppliers.',
-    stats: [
-      { label: 'Registered Businesses', value: '1,20,000+' },
-      { label: 'Verified Manufacturers', value: '75,000+' },
-      { label: 'Active Requirements', value: '50,000+' },
-      { label: 'Countries Connected', value: '180+' },
-    ],
+    stats: [],
     pills: ['Textiles', 'Machinery', 'Agriculture', 'Electronics', 'Pharma'],
   },
   buyer: {
     heading: 'Source Bulk Products\nFrom Verified Factories',
-    sub: 'Post your requirements once — receive quotes from 50,000+ manufacturers across India and 180 countries.',
-    stats: [
-      { label: 'Free RFQs / Month', value: 'Unlimited' },
-      { label: 'Verified Suppliers', value: '75,000+' },
-      { label: 'Avg. Quotes per RFQ', value: '10+' },
-      { label: 'Avg. Response Time', value: '<24 hrs' },
-    ],
+    sub: 'Post your requirements once and receive quotations from verified manufacturers.',
+    stats: [],
     pills: ['Free Registration', 'Post RFQ Free', 'Compare Quotes', 'Direct Chat'],
   },
   supplier: {
-    heading: 'Reach 1,20,000+ Buyers\nGlobally',
+    heading: 'Connect with bulk buyers\nand manufacturers',
     sub: 'Get your business verified, list products, and receive qualified bulk-order RFQs from international buyers every day.',
-    stats: [
-      { label: 'Active Buyer RFQs', value: '50,000+' },
-      { label: 'Avg. Order Value', value: '₹5L+' },
-      { label: 'Export Countries', value: '180+' },
-      { label: 'New RFQs Daily', value: '500+' },
-    ],
+    stats: [],
     pills: ['KYC Verified Badge', 'Priority Visibility', 'RFQ Matching', 'Analytics'],
   },
 };

@@ -15,7 +15,7 @@ const SITEMAP = [
     section: 'Main Marketplace',
     links: [
       { label: 'Home', href: '/' },
-      { label: 'Browse 100,000+ Products', href: '/products' },
+      { label: 'Browse products', href: '/products' },
       { label: 'Verified Suppliers & Manufacturers Directory', href: '/manufacturers' },
       { label: 'Live Buying Requirements & RFQ Feed', href: '/requirements' },
       { label: 'How It Works (Buyer & Supplier Guides)', href: '/how-it-works' },
@@ -65,7 +65,7 @@ const SITEMAP = [
 
 const XML_SITEMAPS = [
   { name: 'Master Sitemap Index', path: '/sitemap.xml', desc: 'Main XML index linking all specialized sitemaps' },
-  { name: 'Verified Companies Sitemap', path: '/sitemap-companies.xml', desc: '1,030+ verified manufacturer profile pages' },
+  { name: 'Verified Companies Sitemap', path: '/sitemap-companies.xml', desc: 'Verified manufacturer profile pages' },
   { name: 'Bulk Products Sitemap', path: '/sitemap-products.xml', desc: '5,300+ wholesale product listings with MOQ & prices' },
   { name: 'Buying Requirements (RFQs) Sitemap', path: '/sitemap-rfqs.xml', desc: 'Active buyer tender and bulk sourcing feeds' },
   { name: 'Core Pages Sitemap', path: '/sitemap-main.xml', desc: 'Main public landing and information pages' },

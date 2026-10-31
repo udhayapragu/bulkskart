@@ -12,7 +12,6 @@ import type { Product, Category } from '@/types/types';
 import SafeImage from '@/components/common/SafeImage';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useCountry } from '@/contexts/CurrencyContext';
-import { CURATED_INDUSTRIAL_PRODUCTS } from '@/data/curatedIndustrialProducts';
 import { matchProductImage } from '@/lib/productImageMatchingEngine';
 
 const COUNTRIES = [

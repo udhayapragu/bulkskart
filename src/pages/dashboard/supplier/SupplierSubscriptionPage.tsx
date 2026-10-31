@@ -74,8 +74,8 @@ const TIER_ICONS: Record<string, React.ReactNode> = {
 const TRUST_ITEMS = [
   { icon: Shield,    label: 'Secure Payments',   desc: 'Powered by Razorpay' },
   { icon: RefreshCw, label: 'Cancel Anytime',    desc: 'No lock-in contracts' },
-  { icon: Users,     label: '5,000+ Suppliers',  desc: 'Already on BulkSkart' },
-  { icon: Globe,     label: 'Global Reach',       desc: '80+ countries' },
+  { icon: Users,     label: 'Verified suppliers', desc: 'Find them on BulkSkart' },
+  { icon: Globe,     label: 'Global Reach',       desc: 'Buyers and suppliers across borders' },
 ];
 
 export default function SupplierSubscriptionPage() {

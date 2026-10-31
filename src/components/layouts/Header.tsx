@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getCategories } from '@/lib/api';
+import type { Category } from '@/types/types';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -16,7 +18,7 @@ import { toast } from 'sonner';
 import {
   Menu, Bell, ChevronDown, LogOut, User, LayoutDashboard,
   Globe, ChevronRight, Search, Moon, Sun, DollarSign, Zap, Check,
-  Settings, Shirt, Package, Beaker, AlertCircle, Sparkles, LogIn, UserPlus
+  Settings, Shirt, Package, Beaker, AlertCircle, Sparkles, LogIn, UserPlus, Languages
 } from 'lucide-react';
 
 // Mobile category chips shown below the search row
@@ -43,15 +45,23 @@ const LANGUAGES = [
   { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
 ];
 
-const navLinks = [
+// Desktop bar: the main marketplace destinations. The category mega menu sits before these.
+const desktopNavLinks = [
   { label: 'Products', href: '/products' },
+  { label: 'Manufacturers', href: '/manufacturers' },
+  { label: 'Suppliers', href: '/suppliers' },
   { label: 'Live Auctions', href: '/auctions' },
-  { label: 'Reverse RFQs', href: '/requirements' },
-  { label: 'AI Import & Export Assistant', href: '/trade-assistant' },
+  { label: 'RFQ Marketplace', href: '/requirements' },
+  { label: 'How It Works', href: '/how-it-works' },
+];
+
+// Mobile sheet: every destination, so nothing is lost on small screens.
+const navLinks = [
+  ...desktopNavLinks,
+  { label: 'Categories', href: '/categories' },
+  { label: 'Post Your Requirement', href: '/post-requirement' },
   { label: 'My Quotations', href: '/my-quotations' },
-  { label: 'Suppliers', href: '/manufacturers' },
-  { label: 'Post RFQ', href: '/post-requirement' },
-  { label: 'Trade Assurance', href: '/how-it-works' },
+  { label: 'AI Import & Export Assistant', href: '/trade-assistant' },
   { label: 'Pricing', href: '/pricing' },
 ];
 
@@ -65,6 +75,97 @@ const CURRENCY_SYMBOLS: Record<string, string> = {
   INR: '₹', USD: '$', GBP: '£', EUR: '€', AED: 'د.إ',
   JPY: '¥', CNY: '¥', AUD: 'A$', CAD: 'C$', SGD: 'S$',
 };
+
+/** Category mega menu: loads the active top-level categories from the database. */
+function CategoryMegaMenu() {
+  const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[] | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    let active = true;
+    getCategories()
+      .then((rows) => {
+        if (active) setCategories(rows.filter((c) => !c.parent_id));
+      })
+      .catch(() => {
+        if (active) setCategories([]);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div ref={rootRef} className="relative shrink-0">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="true"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-1 whitespace-nowrap px-3.5 py-2.5 text-[12.5px] font-medium text-muted-foreground transition-colors hover:text-primary lg:px-4 lg:text-[13px]"
+      >
+        Categories
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full z-50 mt-1 w-[min(880px,92vw)] rounded-2xl border border-border bg-popover p-6 shadow-2xl">
+          {categories === null ? (
+            <p className="text-sm text-muted-foreground">Loading categories…</p>
+          ) : categories.length > 0 ? (
+            <div className="grid max-h-[60vh] grid-cols-3 gap-x-4 gap-y-1 overflow-y-auto pr-1">
+              {categories.map((c) => (
+                <Link
+                  key={c.id}
+                  to={`/categories/${c.slug}`}
+                  onClick={() => setOpen(false)}
+                  className="group rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
+                >
+                  <span className="block text-sm font-semibold text-foreground group-hover:text-primary">{c.name}</span>
+                  {c.description && (
+                    <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{c.description}</span>
+                  )}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">Categories will appear here once they are published.</p>
+          )}
+          <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-sm">
+            <Link to="/categories" onClick={() => setOpen(false)} className="font-semibold text-primary hover:underline">
+              All categories
+            </Link>
+            <Link to="/products" onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground">
+              Browse all products
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Header() {
   const { user, profile, signOut, loading, resolvedRole, displayName, dashboardPath } = useAuth();
@@ -140,7 +241,7 @@ export default function Header() {
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <header className="relative z-30 w-full bg-background border-b border-border shadow-sm transition-colors">
+    <header className="sticky top-0 z-40 w-full bg-background border-b border-border shadow-sm transition-colors">
       {/* ── Main row ── */}
       <div className="max-w-[1400px] mx-auto px-2.5 sm:px-4 md:px-6 h-[56px] flex items-center gap-1 sm:gap-2 md:gap-4 justify-between md:justify-start">
 
@@ -368,6 +469,28 @@ export default function Header() {
           <Button variant="ghost" size="icon" onClick={toggleTheme} className="h-9 w-9 text-muted-foreground hover:text-foreground" aria-label="Toggle dark mode">
             {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </Button>
+          {/* Language selector: English is live. Other languages need translations first. */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" aria-label="Select language" className="h-9 px-2 gap-1.5 text-[13px] text-muted-foreground hover:text-foreground font-semibold">
+                <Languages className="w-4 h-4" />
+                <span className="font-bold text-foreground">EN</span>
+                <ChevronDown className="w-3 h-3 opacity-60" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 bg-popover border-border">
+              <div className="px-2 py-1.5 text-[11px] font-bold text-muted-foreground border-b border-border">Language</div>
+              {LANGUAGES.map((lang) => (
+                <DropdownMenuItem key={lang.code} disabled={lang.code !== 'en'} className="text-xs gap-2 py-2">
+                  <span className="text-base">{lang.flag}</span>
+                  <span className="flex-1">{lang.label}</span>
+                  {lang.code !== 'en' && <span className="text-[10px] text-muted-foreground">Coming soon</span>}
+                  {lang.code === 'en' && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Country, Currency & Tax Selector (Desktop) */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -421,6 +544,11 @@ export default function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <Link to="/post-requirement" className="shrink-0">
+            <Button size="sm" variant="outline" className="h-8 px-3 text-[13px] font-bold rounded whitespace-nowrap border-primary text-primary hover:bg-primary hover:text-white">
+              Post Your Requirement
+            </Button>
+          </Link>
           <CopyPublicProfileButton />
           <NotificationBell />
           {user ? (
@@ -521,14 +649,16 @@ export default function Header() {
       </div>
 
       {/* ── Desktop Category Nav ── */}
-      <nav className="hidden md:block border-t border-border">
+      <nav aria-label="Main" className="hidden md:block border-t border-border">
         <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between">
-          <div className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap py-0.5" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            {navLinks.map((link, i) => (
+          <div className="flex flex-wrap items-center whitespace-nowrap py-0.5">
+            <CategoryMegaMenu />
+            {desktopNavLinks.map((link) => (
               <Link key={link.href} to={link.href}
                 {...getPrefetchHandlers(link.href)}
+                aria-current={isActive(link.href) ? 'page' : undefined}
                 className={`whitespace-nowrap px-3.5 lg:px-4 py-2.5 text-[12.5px] lg:text-[13px] font-medium transition-colors hover:text-primary border-b-2 ${
-                  i === 0 ? 'border-primary text-primary' : 'border-transparent text-muted-foreground'
+                  isActive(link.href) ? 'border-primary text-primary' : 'border-transparent text-muted-foreground'
                 }`}>
                 {link.label}
               </Link>
